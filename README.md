@@ -13,9 +13,10 @@ NodeJS CMS with AngularJS, Bootstrap, ExpressJS and Elasticsearch
 - Run "npm install" in root folder
 - Run CMS in root folder with "node app.js"
 
-Not done right now but it can already be used. 
 
-Todo:
+###Todo:
+CMS is not done right now but it can already be used.
+
 - Dashboard implemtation
 - Styling of the CMS
 - Integrate Passport for CMS login
