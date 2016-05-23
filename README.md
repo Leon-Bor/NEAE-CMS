@@ -15,7 +15,8 @@ NodeJS CMS with AngularJS, Bootstrap, ExpressJS and Elasticsearch
 
 
 ###Todo:
-CMS is not done right now but it can already be used.
+CMS is not done right now but it can already be tested. 
+First beta version release around August 2016.
 
 - Dashboard implemtation
 - Styling of the CMS
