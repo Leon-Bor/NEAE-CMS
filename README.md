@@ -7,8 +7,9 @@ NodeJS CMS with AngularJS, Bootstrap, ExpressJS and Elasticsearch
 - Multiple language Support made easy
 - Component/Section based CMS
 
-### Start
-- Download Elasticsearch and start it
-- Download and install NodeJS
+### Get Started
+- Download Elasticsearch (>= v2.0) and start it
+- Download and install NodeJS (>= v6.0)
+- Run "npm install" in root folder
 - Run CMS in root folder with "node app.js"
 
