@@ -1,0 +1,43 @@
+//++++++++++++++++++++++++++++++++++++
+// EDIT YOUR PAGE STYLES
+//++++++++++++++++++++++++++++++++++++
+
+
+@charset 'UTF-8';
+
+// 1. Configuration and helpers
+@import
+  'abstracts/variables',
+  'abstracts/functions',
+  'abstracts/mixins';
+
+// 2. Vendors
+@import
+  'vendor/font-awesome.min',
+	'vendor/bootstrap',
+	'vendor/normalize';
+
+// 3. Base stuff
+@import
+  'base/base',
+  'base/fonts',
+  'base/typography',
+  'base/helpers';
+
+// 4. Layout-related sections
+@import
+  'layout/header',
+  'layout/footer',
+  'layout/navigation';
+
+// 5. Components
+@import
+  'components/button';
+
+// 6. Page-specific styles
+@import
+  'pages/home';
+
+// 7. Themes
+@import
+  'themes/default';

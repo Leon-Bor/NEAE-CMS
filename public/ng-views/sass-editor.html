@@ -1,0 +1,106 @@
+
+<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.getSession().setMode("ace/mode/scss");
+    editor.setTheme("ace/theme/monokai");
+</script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Sass-Editor<small> Edit Your Styles On The Fly</small></h1>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-9">
+<!--         <div class="panel panel-primary">
+            <div class="panel-heading" style="padding: 0px;"> -->
+            <div style="width: 100%; background-color: #2F3129;padding-left: 50px;">
+            	<div ng-repeat="file in sass_files" class="btn-group" role="group" aria-label="..." style="margin:4px 4px 4px 2px;">
+				  <button ng-click="changeFile(file.path)" type="button" class="btn btn-default btn-xs" >{{file.name}}</button>
+				  <button ng-click="closeFile(file.path)" type="button" class="btn btn-default btn-xs"><i class="fa fa-times" aria-hidden="true"></i></button>
+				</div>	
+            </div>
+
+<!--             </div>
+            <div class="panel-body" style="padding: 0px;"> -->
+				<div id="editor"></div>
+<!--             </div>
+        </div> -->
+        <div style="margin-top: 10px">
+        <button type="button" class="btn btn-default" ng-click="saveSassFiles()" >Save All</button>
+        <button type="button" class="btn btn-primary" ng-click="saveCurrentSassFile()" >Save</button>
+        	
+        </div>
+         
+    </div>
+    <div class="col-md-3">
+
+	<script type="text/ng-template"  id="tree_item_renderer.html">
+	    <a data-target="#{{data.path.replaceAll('/','_')}}"  data-toggle="collapse" ng-if="data.name.indexOf('.scss') == -1" class="folder list-group-item">
+	    <i class="fa fa-folder" aria-hidden="true"></i>
+	    {{data.name}}
+	    <b class="caret"></b>
+<!-- 	    <i class="fa fa-plus-square pull-right" aria-hidden="true"></i>
+ -->	    </a>
+
+	    <a ng-if="data.name.indexOf('.scss') > -1" href="" ng-click="getSassFile(data.path, data.name)" class="list-group-item">
+	    <i class="fa fa-file-code-o" aria-hidden="true"></i>
+	    {{data.name}}
+<!-- 	    <i class="fa fa-trash-o pull-right" aria-hidden="true"></i>
+ -->	    </a>
+
+	    <div id="{{data.path.replaceAll('/','_')}}" class="collapse list-group" ng-if="data.children">
+	    		
+	    		<div ng-repeat="data in data.children" ng-include="'tree_item_renderer.html'" >
+	    			
+	    		</div>
+	
+	    	
+	    </div>
+	</script>
+
+	<div class="file-list list-group" >
+	    <div ng-repeat="data in sass.children" ng-include="'tree_item_renderer.html'" class=""></div>
+	</div>
+
+<!-- 		<script type="text/ng-template" id="field_renderer.html">
+			<div ng-if="s.children">
+				<a ref="#" class="list-group-item">
+					<i class="fa fa-folder" aria-hidden="true"></i>
+					{{s.name}}
+					<b ng-if="s.name.indexOf('.scss') == -1" class="caret"></b>
+					<span class="badge">{{s.children.length}}</span>
+				</a>
+				<a ng-repeat="p in s.children" href="#" class="list-group-item">
+				<i class="fa fa-file-code-o" style="margin-left: 15px;" aria-hidden="true"></i>
+				{{p.name}} 
+				</a>
+			</div>
+		</script>
+		<div class="list-group" >
+			<div ng-repeat="s in sass.children" ng-include="'field_renderer.html'">
+				
+			</div>
+		</div> -->
+
+
+<!-- 		<div class="list-group">
+			<a ng-repeat="s in sass.children" href="#" class="list-group-item">
+			<span class="badge">{{s.children.length}}</span>
+	        	{{s.name}} <b ng-if="s.name.indexOf('.scss') == -1" class="caret"></b>
+
+				<div class="list-group">
+					<a ng-repeat="p in s.children" href="#" class="list-group-item">
+					<span class="badge">{{p.children.length}}</span>
+					{{p.name}} <b ng-if="p.name.indexOf('.scss') == -1" class="caret"></b>
+					</a>
+				</div>
+
+			</a>
+		</div> -->
+
+    </div>
+</div>

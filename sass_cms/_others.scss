@@ -1,0 +1,21 @@
+#error_popup{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+img.gray_hover{
+	-webkit-filter: grayscale(100%);
+	transition: all 0.5s ease;
+	&:hover{
+		transition: all 0.5s ease;
+
+		-webkit-filter: grayscale(0%);
+	}
+}
+
+a.list-group-item:hover{
+    color: white;
+}
+

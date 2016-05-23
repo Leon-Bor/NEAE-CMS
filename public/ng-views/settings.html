@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Settings<small> Basic CMS and Page settings</small></h1>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-cog"></i> Settings</h3>
+            </div>
+            <div class="panel-body">
+ 
+        <div class="row">
+            <label for="firstname" class="col-md-2">
+                Default Language:
+            </label>
+            <div class="col-md-10">
+            <select ng-model="settings.default_lang" class="form-control">
+            <option>{{settings.default_lang}}</option>
+            <option ng-if="settings.default_lang != l" ng-repeat="l in settings.languages">{{l}}</option>
+
+            </select>
+            </div>
+        </div>
+        <div class="row" ng-show="settings.multi_lang == 'true'">
+            <label for="firstname" class="col-md-2">
+                All Languages:
+            </label>
+            <div class="col-md-10">
+            <div class="btn-group" ng-repeat="l in settings.supported_lang">
+                <button class="btn btn-default btn-xs">{{l}}</button>
+                <button class="btn btn-default btn-xs" ng-click="removeLanguage(l)"><i class="fa fa-times"></i></button>
+            </div>
+                
+                
+            </div>
+        </div>  
+        <div class="row">
+            <label for="sex" class="col-md-2">
+                Language Option:
+            </label>
+            <div class="col-md-10">
+                <label class="radio">
+                    <input type="radio" ng-model="settings.multi_lang" name="multi" value="false" checked="">
+                    Single Language
+                </label>
+                <label class="radio">
+                    <input type="radio" ng-model="settings.multi_lang" name="multi" value="true">
+                    Multi Language
+                </label>
+            </div>             
+        </div>
+        <div class="row" ng-show="settings.multi_lang == 'true'">
+            <label for="country" class="col-md-2">
+                Add Language:
+            </label>
+            <div class="col-md-8">
+                <select ng-model="selectedLanguage" name="country" id="country" class="form-control">
+                    <option ng-repeat="l in settings.languages">{{l}}</option>
+                    
+                </select>
+                <p class="help-block">
+                    Find your language: <a href="http://www.w3schools.com/tags/ref_language_codes.asp"> HTML Languages</a>
+                </p>
+                
+            </div>
+            <div class="col-md-2">
+            	<button class="btn btn-default" ng-click="addLanguage(selectedLanguage)"> Add Language</button>
+            </div>
+        </div>
+
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="saveSettings()" >Save Settings</button>
+    </div>
+</div>

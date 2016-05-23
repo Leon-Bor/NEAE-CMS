@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="<%= lang == 'default' ? default_lang : lang %>" >
+<% include page-parts/header %>
+<body>
+    <div id="wrapper">
+        <div id="nav-wrapper">
+            <div class="container">
+                <div class="row">
+                    <% include page-parts/nav %>
+                </div>        
+            </div>   
+        </div>
+
+    	    <div id="page-wrapper" >
+    	        <!-- CONTENT/PAGE FROM DATABASE -->
+    	    	<%- _source.languages[lang].html %>
+    	    	<!-- END CONTENT/PAGE FROM DATABASE -->
+    	    </div>
+
+            <% include page-parts/footer %>
+        
+    </div>
+</body>
+</html>

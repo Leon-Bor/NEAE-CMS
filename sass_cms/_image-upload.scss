@@ -1,0 +1,17 @@
+.image-upload{
+	.img-head{
+		text-align: center;
+		span{
+			margin-bottom: 10px;
+
+			word-break: break-all;
+		}
+
+	}
+
+	.close-btn{
+		position: absolute;
+	    top: 5px;
+	    right: 25px;
+	}
+}
