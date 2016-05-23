@@ -1,9 +1,6 @@
 # NodeJS-CMS
 NodeJS CMS with AngularJS, Bootstrap, ExpressJS and Elasticsearch
 
-# NodeJS-CMS
-NodeJS CMS with AngularJS, Bootstrap, ExpressJS and Elasticsearch
-
 ### What is special about this CMS?
 - Use Bootstrap as an easy drag-and-drop system
 - Edit your sass/css in the CMS on the fly
