@@ -16,6 +16,7 @@ NodeJS CMS with AngularJS, Bootstrap, ExpressJS and Elasticsearch
 Not done right now but it can already be used. 
 
 Todo:
-Dashboard implemtation
-Styling of the CMS
+- Dashboard implemtation
+- Styling of the CMS
+- Integrate Passport for CMS login
 
