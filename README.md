@@ -1,5 +1,5 @@
-# NodeJS-CMS
-NodeJS CMS with AngularJS, Bootstrap, ExpressJS and Elasticsearch
+# NEAE CMS
+Node.js CMS with Angular.js, Bootstrap, Express.js and Elasticsearch
 
 ### What is special about this CMS?
 - Use Bootstrap as an easy drag-and-drop system
