@@ -14,18 +14,18 @@ var multer = require('multer');
 
 */
 
-router.get('/cms', function (req, res) {
+router.get('/cms', FC.isAuth, function (req, res) {
     res.render('cms')
 });
 
 // Get all pages
-router.get("/cms/pages/all", function(req, res, next) {
+router.get("/cms/pages/all", FC.isAuth, function(req, res, next) {
   ES.get.all_from_type("page",function(resp){
     res.json(resp)
   }) 
 });
 // Get all sections
-router.get("/cms/sections/all", function(req, res, next) {
+router.get("/cms/sections/all", FC.isAuth, function(req, res, next) {
   ES.get.all_from_type("section",function(resp){
     res.json(resp)
   }) 
@@ -33,7 +33,7 @@ router.get("/cms/sections/all", function(req, res, next) {
 
 
 // Get all images
-router.get("/cms/all-images", function(req, res, next) {
+router.get("/cms/all-images", FC.isAuth, function(req, res, next) {
 
 var images = fs.readdirSync('./public/uploads')
 res.json(images)
@@ -41,7 +41,7 @@ res.json(images)
 });
 
 //get specific file
-router.get('/cms/get-file', function(req, res, next) {
+router.get('/cms/get-file', FC.isAuth, function(req, res, next) {
 
   fs.readFile(req.query.url, 'utf8', function (err, data) {
           if (err) throw err;
@@ -56,7 +56,7 @@ router.get('/cms/get-file', function(req, res, next) {
 });
 
 // Get all images
-router.get("/cms/navigation/:id", function(req, res, next) {
+router.get("/cms/navigation/:id", FC.isAuth, function(req, res, next) {
 
   ES.get.navigation(req.params.id, function(data) {
         console.log(data)
@@ -70,7 +70,7 @@ router.get("/cms/navigation/:id", function(req, res, next) {
 });
 
 // get sass folder and file structure
-router.get('/cms/sass-folder', function(req, res, next) {
+router.get('/cms/sass-folder', FC.isAuth, function(req, res, next) {
 
   var filteredTree = dirTree('./sass', ['.scss']);
   res.json(filteredTree)
@@ -79,7 +79,7 @@ router.get('/cms/sass-folder', function(req, res, next) {
 /* 
   POST REQUEST
 */
-router.post('/cms/section/:id', function(req, res, next) {
+router.post('/cms/section/:id', FC.isAuth, function(req, res, next) {
   ES.get.section(req.params.id, function(data){
 
 
@@ -90,21 +90,21 @@ router.post('/cms/section/:id', function(req, res, next) {
 });
 
 // Create new Section
-router.post('/cms/section', function(req, res, next) {
+router.post('/cms/section', FC.isAuth, function(req, res, next) {
   ES.create.section(req.body, function(resp){
     res.redirect("/cms/section/"+resp._id)
   }) 
 });
 
 // get all sections for page
-router.post('/cms/multiple-sections', function(req, res, next) {
+router.post('/cms/multiple-sections', FC.isAuth, function(req, res, next) {
   ES.get.multiple_sections(req.body, function(resp){
     res.json(resp)
   }) 
 });
 
 // Save section changes to DB
-router.post('/cms/section/:id/save', function(req, res, next) {
+router.post('/cms/section/:id/save', FC.isAuth, function(req, res, next) {
 
   ES.update.section(req.params.id, req.body._source, function(){
     ES.get.pages_containing_sections(req.params.id, function (resp) {
@@ -141,7 +141,7 @@ router.post('/cms/section/:id/save', function(req, res, next) {
 });
 
 // delete section from DB
-router.post('/cms/section/:id/delete', function(req, res, next) {
+router.post('/cms/section/:id/delete', FC.isAuth, function(req, res, next) {
 
   ES.get.pages_containing_sections(req.params.id, function (resp) {
     if(resp.hits.total == 0){
@@ -155,7 +155,7 @@ router.post('/cms/section/:id/delete', function(req, res, next) {
   })
 });
 
-router.post('/cms/page/:id', function(req, res, next) {
+router.post('/cms/page/:id', FC.isAuth, function(req, res, next) {
   ES.get.page(req.params.id, function(data){
     data = FC.updateLanguages(data)
     res.json(data)
@@ -163,7 +163,7 @@ router.post('/cms/page/:id', function(req, res, next) {
 });
 
 // delete section from DB
-router.post('/cms/page/:id/delete', function(req, res, next) {
+router.post('/cms/page/:id/delete', FC.isAuth, function(req, res, next) {
 
   ES.delete.page(req.params.id,function(){
     reloadAllPages();
@@ -173,7 +173,7 @@ router.post('/cms/page/:id/delete', function(req, res, next) {
 });
 
 // Save page changes to DB
-router.post('/cms/page/:id/save', function(req, res, next) {
+router.post('/cms/page/:id/save', FC.isAuth, function(req, res, next) {
 
     FC.parseGrid(req.body, function(page_obj){
 
@@ -190,7 +190,7 @@ router.post('/cms/page/:id/save', function(req, res, next) {
 
 
 // create new page
-router.post('/cms/page', function(req, res, next) {
+router.post('/cms/page', FC.isAuth, function(req, res, next) {
 	ES.create.page(req.body, function(resp){
     reloadAllPages();
 		res.redirect("/cms/page-grid/"+resp._id);
@@ -199,7 +199,7 @@ router.post('/cms/page', function(req, res, next) {
 
 
 
-router.post('/cms/delete-file', function(req, res, next) {
+router.post('/cms/delete-file', FC.isAuth, function(req, res, next) {
 
   console.log(req.body.url)
 
@@ -215,7 +215,7 @@ router.post('/cms/delete-file', function(req, res, next) {
 });
 
 
-router.post('/cms/save-file', function(req, res, next) {
+router.post('/cms/save-file', FC.isAuth, function(req, res, next) {
 
   var temp = req.body.data
 
@@ -234,7 +234,7 @@ router.post('/cms/save-file', function(req, res, next) {
 });
 
 
-router.post('/cms/save-navigation', function(req, res, next) {
+router.post('/cms/save-navigation', FC.isAuth, function(req, res, next) {
 
   var parsedNav = FC.parseNavGrid(req.body.navigation)
 
@@ -261,7 +261,7 @@ var upload = multer({
 }).single('image');
 
 
-router.post('/upload', upload, function(req, res, next) {
+router.post('/upload', FC.isAuth, upload, function(req, res, next) {
 
   res.redirect('/cms/image-upload')
 
@@ -269,7 +269,7 @@ router.post('/upload', upload, function(req, res, next) {
 
 
 // Needs to be the last one, to catch all other URL which are not defined
-router.get('/cms/*', function (req, res) {
+router.get('/cms/*', FC.isAuth, function (req, res) {
     res.render('cms')
 });
 

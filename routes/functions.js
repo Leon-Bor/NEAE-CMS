@@ -7,6 +7,16 @@ var cfg = require('./config');
 
 
 var functions = {
+
+		isAuth: function(req,res,next){
+
+			if (req.isAuthenticated()){
+
+				next();
+			} else {
+				res.redirect('/login');
+			}
+		},
 		parseGrid : function (page, done){
 
 		var that = this;

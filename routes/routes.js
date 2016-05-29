@@ -2,6 +2,7 @@ var express = require('express');
 var accepts = require('accepts')
 var router = express.Router();
 var ES = require('./elasticsearch');
+var cfg = require('./config')
 
 pageContent = {};
 reloadAllPages = function (done){
@@ -28,24 +29,24 @@ reloadAllPages = function (done){
 
 					req.originalUrl = req.originalUrl.split("?")[0];
 
-					var lang = accepts(req).language(config.languages)
+					var lang = accepts(req).language(cfg.config.languages)
 
 					if(req.query.lang){
-						if(config.supported_lang.indexOf(req.query.lang)){
+						if(cfg.config.supported_lang.indexOf(req.query.lang)){
 							lang = req.query.lang;
 						}
 					}
 
-					if(lang == false || config.multi_lang == false || lang == config.default_lang){
+					if(lang == false || cfg.config.multi_lang == false || lang == cfg.config.default_lang){
 						lang = "default"
 
-						pageContent[req.originalUrl].language = config.default_lang;
+						pageContent[req.originalUrl].language = cfg.config.default_lang;
 					}else{
 						pageContent[req.originalUrl].language = lang;
 					}
 
 					pageContent[req.originalUrl].lang = lang;
-					pageContent[req.originalUrl].default_lang = config.default_lang;
+					pageContent[req.originalUrl].default_lang = cfg.config.default_lang;
 					if(pageContent[req.originalUrl]._source.online == true || req.query.preview == pageContent[req.originalUrl]._id){
 						res.render('page', pageContent[req.originalUrl]);
 					}else{

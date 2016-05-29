@@ -25,10 +25,22 @@ passport.use(new LocalStrategy(
 		console.log("upassword incorret")
 	return done(null, false, { message: 'Incorrect password.' });
 	}
-	return done(null, user);
+	return done(null, {id: cfg.config.cms_username});
 
   }
 ));
+
+// used to serialize the user for the session
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+// used to deserialize the user
+passport.deserializeUser(function(id, done) {
+    if(id == cfg.config.cms_username)
+        done(null, {id: cfg.config.cms_username});
+
+});
 
 router.post('/login',
   passport.authenticate('local', { successRedirect: '/cms',
@@ -38,6 +50,13 @@ router.post('/login',
 
 router.get('/login',function (req, res) {
 	res.render("login")
-}
-);
+});
+
+router.get('/logout', function(req,res){
+	console.log('logout')
+   req.session.destroy()
+   req.logout();
+   res.redirect('/login')
+});
+
 module.exports = router;
