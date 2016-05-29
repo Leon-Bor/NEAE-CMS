@@ -2,7 +2,7 @@ var ES = require('./elasticsearch');
 
 
 var cmsbuilder = {
-	init: function (argument) {
+	init: function () {
 		var that = this;
 		ES.exist("cms",'navigation',"main",function (argument) {
 			//If Nav does not exist => create one

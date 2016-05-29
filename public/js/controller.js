@@ -981,6 +981,26 @@ app.controller('settings', ['$scope', '$http', '$routeParams','$location',
 
   	}
 
+  	$scope.saveSettings = function() {
+		$http({
+		  method: 'POST',
+		  url: '/password',
+		  data: {
+		  	cms_password: 
+		  	cms_password_re: 
+		  }
+		}).then(function successCallback(response) {
+			console.log(response)
+			showalert("Settings saved.", "alert-success")
+			
+		}, function errorCallback(response) {
+		// called asynchronously if an error occurs
+		// or server returns response with an error status.
+			showalert("Chaning the password failed!", "alert-danger")
+		});
+
+  	}
+
   	$scope.addLanguage = function(lang) {
   		var index = $scope.settings.supported_lang.indexOf(lang)
   		if(index > -1){

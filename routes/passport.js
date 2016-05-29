@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var cfg = require('./config');
+var FC = require('./functions')
 const crypto = require('crypto');
 const secret = '1LikeTrains';
 
@@ -48,12 +49,30 @@ router.post('/login',
                                    failureFlash: true })
 );
 
+router.post('/password', FC.isAuth, function(req, res) {
+	
+	// Change the password...
+	if(req.body.cms_password !== req.body.cms_password_re){
+		res.json({error: 100})
+	}else if(req.body.cms_password.replace(" ",'') == ""){
+		res.json({error: 101})
+	}else{
+
+	let pwhash = crypto.createHmac('sha256', secret)
+	           .update(req.body.cms_password+""+cfg.config.cms_salt)
+	           .digest('hex');
+
+	    cfg.cms_password = pwhash;
+		res.json({error: 0})
+	}
+
+});
+
 router.get('/login',function (req, res) {
 	res.render("login")
 });
 
 router.get('/logout', function(req,res){
-	console.log('logout')
    req.session.destroy()
    req.logout();
    res.redirect('/login')

@@ -25,6 +25,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0",
-    "sessionstore": "^1.2.14"
+    "sessionstore": "^1.2.14",
+    "watchjs": "0.0.0"
   }
 }

@@ -4,6 +4,9 @@ var router = express.Router();
 var ES = require('./elasticsearch');
 var cfg = require('./config')
 
+
+
+// TODO: Put all this into modular pattern
 pageContent = {};
 reloadAllPages = function (done){
 
