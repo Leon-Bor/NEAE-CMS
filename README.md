@@ -9,7 +9,7 @@ Node.js CMS with Angular.js, Bootstrap, Express.js and Elasticsearch
 
 ### Get Started
 - Download Elasticsearch (>= v2.0) and start it
-- Download and install NodeJS (>= v6.0)
+- Download and install Node.js (>= v6.0)
 - Run "npm install" in root folder
 - Run CMS in root folder with "node app.js"
 - Go to localhost:3030/login and login with => Username: admin, pw: admin
@@ -18,6 +18,5 @@ Node.js CMS with Angular.js, Bootstrap, Express.js and Elasticsearch
 CMS is not done right now but it can already be tested. 
 
 - Dashboard implemtation
-- Styling of the CMS
-- Integrate Passport for CMS login
-
+- Lots of Styling of the CMS
+- Improve some Node.js code
