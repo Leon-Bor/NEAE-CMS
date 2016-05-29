@@ -1,1 +1,8 @@
-{"multi_lang":"true","default_lang":"en","supported_lang":["en","de"],"languages":["en","de","fr","it","pt","ru","es","sv"]}
+{"multi_lang":"true",
+"default_lang":"en",
+"supported_lang":["en","de"],
+"languages":["en","de","fr","it","pt","ru","es","sv"],
+"cms_username": "admin",
+"cms_password": "473c780c632be83bb335907ce2685bd71dc119aed73759171bf323a06b4be4f8",
+"cms_salt": "8476b400c20b4e5bcb41aec584288a525f07401768807dc79261b4d0a48f9219"
+}

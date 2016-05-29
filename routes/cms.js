@@ -15,8 +15,6 @@ var multer = require('multer');
 */
 
 router.get('/cms', function (req, res) {
-  var lang = accepts(req).language(config.languages)
-  console.log("Language " + lang  )
     res.render('cms')
 });
 
@@ -69,6 +67,13 @@ router.get("/cms/navigation/:id", function(req, res, next) {
 
 
 
+});
+
+// get sass folder and file structure
+router.get('/cms/sass-folder', function(req, res, next) {
+
+  var filteredTree = dirTree('./sass', ['.scss']);
+  res.json(filteredTree)
 });
 
 /* 
@@ -192,16 +197,8 @@ router.post('/cms/page', function(req, res, next) {
 	}) 
 });
 
-// get sass folder and file structure
-router.get('/cms/sass-folder', function(req, res, next) {
-
-  var filteredTree = dirTree('./sass', ['.scss']);
-  res.json(filteredTree)
-});
 
 
-
-//get specific sass file
 router.post('/cms/delete-file', function(req, res, next) {
 
   console.log(req.body.url)
@@ -217,7 +214,7 @@ router.post('/cms/delete-file', function(req, res, next) {
 
 });
 
-//get specific sass file
+
 router.post('/cms/save-file', function(req, res, next) {
 
   var temp = req.body.data
@@ -236,9 +233,8 @@ router.post('/cms/save-file', function(req, res, next) {
 
 });
 
-//get specific sass file
-router.post('/cms/save-navigation', function(req, res, next) {
 
+router.post('/cms/save-navigation', function(req, res, next) {
 
   var parsedNav = FC.parseNavGrid(req.body.navigation)
 

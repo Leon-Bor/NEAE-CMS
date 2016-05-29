@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Login</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/cms/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/dark_bootstrap_theme.css"/>
+</head>
+<body>
+<div class="login-form">
+
+    <h1>CMS Login</h1>
+
+    </div>
+        <div class="login-top">
+            <form method="POST" action="/login">
+                <div class="login-ic">
+                    <i class="fa fa-user fa-4 " aria-hidden="true"></i>
+                    <input type="text" name="username" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}">
+                    <div class="clear"> </div>
+                </div>
+                <div class="login-ic">
+                    <i class="fa fa-2 fa-lock" aria-hidden="true"></i>
+                    <input type="password" name="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}">
+                    <div class="clear"> </div>
+                </div>
+            
+                <div class="log-bwn">
+                    <input type="submit" value="Login">
+                </div>
+            </form>
+        </div>
+    </div>
+    <p class="copy"> # 2016 NEAE CMS. </p>
+</div>
+</body>
+</html>

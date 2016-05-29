@@ -3,6 +3,7 @@
 var express = require('express');
 var router = express.Router();
 var ES = require('./elasticsearch');
+var cfg = require('./config');
 
 
 var functions = {
@@ -37,13 +38,13 @@ var functions = {
 			}
 
 
-			if(config.multi_lang == "true"){
+			if(cfg.config.multi_lang == "true"){
 
 
 
 
-				for (var i = 0; i < config.supported_lang.length; i++) {
-					var lang = config.supported_lang[i];
+				for (var i = 0; i < cfg.config.supported_lang.length; i++) {
+					var lang = cfg.config.supported_lang[i];
 
 					for (var section in sectionTable) {
 
@@ -53,7 +54,7 @@ var functions = {
 						}
 					}
 
-					if(config.default_lang != config.supported_lang[i]){
+					if(cfg.config.default_lang != cfg.config.supported_lang[i]){
 						if(!page._source.languages[lang]['html']){
 							page._source.languages[lang]['html'] = ""
 						}
@@ -148,9 +149,9 @@ var functions = {
 	},
 	updateLanguages: function (data, type) {
 	    // add missing languages
-	    for (var i = 0; i < config.supported_lang.length; i++) {
-	      if(data._source.languages[config.supported_lang[i]] == undefined && config.supported_lang[i] != config.default_lang){
-	        data._source.languages[config.supported_lang[i]] = data._source.languages['default']
+	    for (var i = 0; i < cfg.config.supported_lang.length; i++) {
+	      if(data._source.languages[cfg.config.supported_lang[i]] == undefined && cfg.config.supported_lang[i] != cfg.config.default_lang){
+	        data._source.languages[cfg.config.supported_lang[i]] = data._source.languages['default']
 
 	      }
 	    }
@@ -160,10 +161,10 @@ var functions = {
 	      if(s == "default"){
 
 	      }
-	      else if(s == config.default_lang){
+	      else if(s == cfg.config.default_lang){
 	        delete data._source.languages[s]
 	      }
-	      else if( config.supported_lang.indexOf(s) > -1){
+	      else if( cfg.config.supported_lang.indexOf(s) > -1){
 
 	      }
 	      else{

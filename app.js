@@ -5,10 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
+var session = require('express-session');
+var passport = require('passport');
+var sessionstore = require('sessionstore');
+
+var flash = require('connect-flash');
+
 var cfg = require('./routes/config');
+    cfg.init();
 
 var routes = require('./routes/routes');
 var cms = require('./routes/cms');
+var passportRoute = require('./routes/passport');
 var ES = require('./routes/elasticsearch');
 
 //Init cms with some data for first start
@@ -23,7 +31,7 @@ app.use(sassMiddleware({
     dest: path.join(__dirname, 'public') + "/css",
     debug: true,
     outputStyle: 'compressed',
-    prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+    prefix:  '/css' 
 }));
 
 app.use(sassMiddleware({
@@ -32,12 +40,25 @@ app.use(sassMiddleware({
     dest: path.join(__dirname, 'public') + "/css/cms",
     debug: true,
     outputStyle: 'compressed',
-    prefix:  '/css/cms'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+    prefix:  '/css/cms'  
 }));
 
-var port = process.env.PORT || 3030;
-var server = app.listen(port)
-console.log("CMS is listening on port: " + port)
+app.use(session({
+    secret: 'a4f8771f-c823-1234-8tt2',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: 'auto' },
+    store: sessionstore.createSessionStore({
+        type: 'elasticsearch',
+        host: 'localhost:9200',    // optional
+        prefix: '',                // optional
+        index: 'cms',          // optional
+        typeName: 'session',       // optional
+        pingInterval: 1000,        // optional
+        timeout: 10000             // optional
+    })
+}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -51,7 +72,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/ace-builds')));
 
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+
+//ROUTES
 app.use('/', routes);
+app.use('/', passportRoute);
 app.use('/', cms);
 
 // catch 404 and forward to error handler
@@ -60,6 +90,11 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+//Start the server
+var port = process.env.PORT || 3030;
+var server = app.listen(port)
+console.log("CMS is listening on port: " + port)
 
 // error handlers
 
