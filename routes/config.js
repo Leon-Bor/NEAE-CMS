@@ -10,7 +10,7 @@ var cfg = {
 	init : function() {
 		this.read();
 		watch(this.config, function(){
-		    console.log("some attribute of ex3 changes!");
+		    this.save()
 		});
 	},
 	save : function () {
@@ -18,8 +18,7 @@ var cfg = {
 	},
 	read : function () {
 		this.config = jsonfile.readFileSync(file);
-	}
-
+	},
 }
 
 module.exports = cfg;

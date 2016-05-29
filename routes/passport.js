@@ -62,7 +62,8 @@ router.post('/password', FC.isAuth, function(req, res) {
 	           .update(req.body.cms_password+""+cfg.config.cms_salt)
 	           .digest('hex');
 
-	    cfg.cms_password = pwhash;
+	    cfg.config.cms_password = pwhash;
+
 		res.json({error: 0})
 	}
 

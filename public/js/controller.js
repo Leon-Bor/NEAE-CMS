@@ -981,17 +981,26 @@ app.controller('settings', ['$scope', '$http', '$routeParams','$location',
 
   	}
 
-  	$scope.saveSettings = function() {
+  	$scope.savePassword = function() {
 		$http({
 		  method: 'POST',
 		  url: '/password',
 		  data: {
-		  	cms_password: 
-		  	cms_password_re: 
+		  	cms_password: $scope.cms_password,
+		  	cms_password_re: $scope.cms_password_re
 		  }
 		}).then(function successCallback(response) {
 			console.log(response)
-			showalert("Settings saved.", "alert-success")
+			if(response.data.error == 0){
+				showalert("Password changed.", "alert-success")
+			}else if(response.data.error == 100){
+				showalert("Passwords does not match.", "alert-warning")
+			}else if(response.data.error == 101){
+				showalert("Password can't be empty.", "alert-warning")
+			}else{
+				showalert("Changing the password failed!", "alert-danger")
+			}
+			
 			
 		}, function errorCallback(response) {
 		// called asynchronously if an error occurs
