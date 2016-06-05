@@ -29,7 +29,7 @@ app.use(sassMiddleware({
     /* Options */
     src: __dirname +'/sass',
     dest: path.join(__dirname, 'public') + "/css",
-    debug: true,
+    debug: process.argv[2] == "nolog" ? false : true,
     outputStyle: 'compressed',
     prefix:  '/css' 
 }));
@@ -38,7 +38,7 @@ app.use(sassMiddleware({
     /* Options */
     src: __dirname +'/sass_cms',
     dest: path.join(__dirname, 'public') + "/css/cms",
-    debug: true,
+    debug: process.argv[2] == "nolog" ? false : true,
     outputStyle: 'compressed',
     prefix:  '/css/cms'  
 }));
@@ -64,12 +64,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+if(process.argv[2] == "nolog"){
+  console.log = function () {}
+  app.use(logger('dev'));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/ace-builds')));
+
+
 
 // required for passport
 
@@ -94,7 +100,7 @@ app.use(function(req, res, next) {
 //Start the server
 var port = process.env.PORT || 3030;
 var server = app.listen(port)
-console.log("CMS is listening on port: " + port)
+console.info("CMS is listening on port: " + port)
 
 // error handlers
 
