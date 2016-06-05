@@ -1,12 +1,9 @@
-
 <div class="row">
     <div class="col-lg-12">
         <h1>Page Grid <small>Edit your page grid layout</small></h1>
     </div>
 </div>
-
 <div class="row">
-
     <div class="col-md-8">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -17,12 +14,9 @@
             </div>
             <div class="panel-body" style="padding: 0px;">
                 <div id="page" class="page  dnd">
-
                     <!-- DRAG AND DROP PART START-->
                     <!-- DRAG AND DROP PART START -->
-
                     <div ng-show="model.length == 0" class="dnd-info">Drag and drop a container > row > section here...</div>
-
                     <ul class="bs-container col-md-12"
                         dnd-list="model"
                         dnd-allowed-types="['containerType']"
@@ -38,9 +32,8 @@
                             dnd-effect-allowed="move"
                             dnd-moved="model.splice($index, 1); logEvent('Item moved', event)"
                             >
-
                             <div class='menu-bar'>
-                            <h5>{{container.grid}}</h5>
+                                <h5>{{container.grid}}</h5>
                                 <i class='fa fa-cog close-btn' ng-click='optionsModal("container", $index)' data-toggle="modal" data-target="#optionsModal"></i>
                             </div>
                             <ul class="bs-row"
@@ -56,9 +49,8 @@
                                     dnd-effect-allowed="move"
                                     dnd-moved="container.rows.splice($index, 1)">
                                     <div class="">
-
                                         <div class='menu-bar'>
-                                        <h5>{{row.grid}}</h5>
+                                            <h5>{{row.grid}}</h5>
                                             <i class='fa fa-cog close-btn' ng-click='optionsModal("row", $index, $parent.$index)' data-toggle="modal" data-target="#optionsModal"></i>
                                         </div>
                                         <ul class="itemlist bs-col "
@@ -66,11 +58,11 @@
                                             dnd-allowed-types="['itemType']"
                                             dnd-horizontal-list="true"
                                             dnd-external-sources="true"
-                                            dnd-dragover="dragoverCallback(event, index, external, type, item.standart_grid_width)"
+                                            dnd-dragover="dragoverCallback(event, index, external, type)"
                                             dnd-drop="dropCallback(event, index, item, external, type, 'itemType')"
                                             dnd-inserted="logEvent('Element was inserted at position ' + index, event)"
                                             >
-                                            <li class="child-col col-md-{{item.standart_grid_width}}"
+                                            <li class="child-col col-md-{{item.standart_grid_width}} col-xs-{{item.standart_grid_width}}"
                                                 ng-repeat="item in row.items"
                                                 dnd-draggable="item"
                                                 dnd-type="'itemType'"
@@ -89,101 +81,102 @@
                                     </div>
                                 </li>
                             </ul>
-                    <!-- DRAG AND DROP PART END -->
-
-
-                </li>
-<!-- 				<div class="drop-message"> Add a new row and drag/drop your sections in the rows.</div> -->
-            </ul>
+                            <!-- DRAG AND DROP PART END -->
+                        </li>
+                        <!--                <div class="drop-message"> Add a new row and drag/drop your sections in the rows.</div> -->
+                    </ul>
+                </div>
+            </div>
         </div>
-
+        <a href="{{page._source.url}}?preview={{page._id}}" target="_blank"><button class="btn btn-default">Preview</button></a>
+        <button class="btn btn-primary" ng-click="savePage()">Save</button>
     </div>
-        
-    </div>
-
-    <a href="{{page._source.url}}?preview={{page._id}}" target="_blank"><button class="btn btn-default">Preview</button></a>
-    <button class="btn btn-primary" ng-click="savePage()">Save</button>
-    </div>
-
     <div class="col-md-4">
-
-<!-- Sidebar -->
-
-
-    <div class="toolbox box box-grey box-padding">
-        <h3>Sections</h3>
-        <ul>
-            <!-- The toolbox only allows to copy objects, not move it. After a new
-                 element was created, dnd-copied is invoked and we generate the next id -->
-            <li ng-repeat="item in dndSections"
-                dnd-draggable="item"
-                dnd-type="'itemType'"
-                dnd-effect-allowed="copy"
-                dnd-dragstart="placeholderWidth(item.standart_grid_width)"
-                >
-                <button type="button" class="btn btn-default btn-lg" disabled="disabled">{{item.label}} - {{item.standart_grid_width}}</button>
-            </li>
-        </ul>
-        <h3>Grid Components</h3>
-        <ul>
-            <!-- The toolbox only allows to copy objects, not move it. After a new
-                 element was created, dnd-copied is invoked and we generate the next id -->
-            <li ng-repeat="item in dndGridComponents"
-                dnd-draggable="item"
-                dnd-type="item.type"
-                dnd-effect-allowed="copy"
-                >
-                <button type="button" class="btn btn-default btn-lg" disabled="disabled">{{item.grid}}</button>
-            </li>
-        </ul>
-    </div>
-
-    <div ng-if="models.selected" class="box box-grey box-padding">
-        <h3>Selected</h3>
-        <strong>Type: </strong> {{models.selected.type}}<br>
-        <input type="text" ng-model="models.selected.id" class="form-control" style="margin-top: 5px" />
-    </div>
-
+        <!-- Sidebar -->
+        <div class="grid-components">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Sections</h3>
+                </div>
+                <div class="panel-body">
+                    <!-- <h3 style="margin-top: 0px;">Sections</h3> -->
+                    <ul class="">
+                        <!-- The toolbox only allows to copy objects, not move it. After a new
+                        element was created, dnd-copied is invoked and we generate the next id -->
+                        <li ng-repeat="item in dndSections.slice(sectionListStart, sectionListStart+10)"
+                            dnd-draggable="item"
+                            dnd-type="'itemType'"
+                            dnd-effect-allowed="copy"
+                            dnd-dragstart="setPlaceholderWidth(item.standart_grid_width)"
+                            >
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default stretch-80" disabled="disabled">{{item.label}} </button>
+                                <button type="button" class="btn btn-default stretch-20" disabled="disabled">{{item.standart_grid_width}}</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div ng-show="dndSections.length > 10" class="btn-group" role="group" aria-label="...">
+                        <button type="button" ng-click="prevSections()" class="btn btn-default stretch-40" ><< </button>
+                        <button type="button" class="btn btn-default stretch-20" disabled="disabled" > {{sectionListStart}}/{{dndSections.length}} </button>
+                        <button type="button" ng-click="nextSections()" class="btn btn-default stretch-40" >>></button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Grid Components</h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <!-- The toolbox only allows to copy objects, not move it. After a new
+                        element was created, dnd-copied is invoked and we generate the next id -->
+                        <li ng-repeat="item in dndGridComponents"
+                            dnd-draggable="item"
+                            dnd-type="item.type"
+                            dnd-effect-allowed="copy"
+                            >
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default stretch-80" disabled="disabled">{{item.grid}}</button>
+                                <button type="button" class="btn btn-default stretch-20" disabled="disabled">-</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-
 <!-- OPTIONS MODAL -->
 <div class="modal fade" id="optionsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add Div Wrapper To Element</h4>
-      </div>
-      <div class="modal-body">
-
-                      <label for="name" class="col-md-3">
-                          Wrapper Classes:
-                      </label>
-                      <div class="col-md-9">
-                            <!-- Todo: add validation to input e.g. pattern="[A-Za-z0-9_]" -->
-                          <input type="text" ng-model="optionsModal.wrapperClasses" class="form-control" name="name" placeholder="Enter Wrapper Classes" data-minlength="1" required >
-                          <p class="help-block">If no classes are added, the wrapper div is disabled.</p>
-                      </div>
-                      <label for="name" class="col-md-3">
-                          Element Classes:
-                      </label>
-                      <div class="col-md-9">
-                            <!-- Todo: add validation to input e.g. pattern="[A-Za-z0-9_]" -->
-                          <input type="text" ng-model="optionsModal.classes" class="form-control" name="name" placeholder="Enter Classes" data-minlength="1" required >
-
-                      </div>
-        
-      </div>
-      <div class="modal-footer">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Div Wrapper To Element</h4>
+            </div>
+            <div class="modal-body">
+                <label for="name" class="col-md-3">
+                    Wrapper Classes:
+                </label>
+                <div class="col-md-9">
+                    <!-- Todo: add validation to input e.g. pattern="[A-Za-z0-9_]" -->
+                    <input type="text" ng-model="optionsModal.wrapperClasses" class="form-control" name="name" placeholder="Enter Wrapper Classes" data-minlength="1" required >
+                    <p class="help-block">If no classes are added, the wrapper div is disabled.</p>
+                </div>
+                <label for="name" class="col-md-3">
+                    Element Classes:
+                </label>
+                <div class="col-md-9">
+                    <!-- Todo: add validation to input e.g. pattern="[A-Za-z0-9_]" -->
+                    <input type="text" ng-model="optionsModal.classes" class="form-control" name="name" placeholder="Enter Classes" data-minlength="1" required >
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" ng-click="saveModalOptions()" class="btn btn-primary">Save</button>      
-       </div>
-
+                    <button type="button" ng-click="saveModalOptions()" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
-
-

@@ -6,6 +6,8 @@ var FC = require('./functions');
 var dirTree = require('directory-tree');
 var fs = require('fs');
 var multer = require('multer');
+var passport = require('passport')
+var routes = require('./routes').routes;
 /* 
   	GET REQUEST
 
@@ -55,11 +57,10 @@ router.get('/cms/get-file', FC.isAuth, function(req, res, next) {
 
 });
 
-// Get all images
+// Get navigation
 router.get("/cms/navigation/:id", FC.isAuth, function(req, res, next) {
 
   ES.get.navigation(req.params.id, function(data) {
-        console.log(data)
     data = FC.updateLanguages(data)
 
     res.json(data)
@@ -71,10 +72,18 @@ router.get("/cms/navigation/:id", FC.isAuth, function(req, res, next) {
 
 // get sass folder and file structure
 router.get('/cms/sass-folder', FC.isAuth, function(req, res, next) {
-
   var filteredTree = dirTree('./sass', ['.scss']);
   res.json(filteredTree)
 });
+
+// get page id
+router.get('/cms/page/:id', FC.isAuth, function(req, res, next) {
+  ES.get.page(req.params.id, function(data){
+    data = FC.updateLanguages(data)
+    res.json(data)
+  })
+});
+
 
 /* 
   POST REQUEST
@@ -115,15 +124,13 @@ router.post('/cms/section/:id/save', FC.isAuth, function(req, res, next) {
 
               if(index === resp.hits.hits.length - 1){
                   
-
-                  // this is shit, fix this and remove timeout
+                  // get rid of the timeout
                   setTimeout(function() {
 
-                    reloadAllPages();
+                    routes.reloadAllPages();
                     res.json(200);
 
                   }, 1000);
-                
               }
 
             })
@@ -131,7 +138,7 @@ router.post('/cms/section/:id/save', FC.isAuth, function(req, res, next) {
         })
 
       }else{
-        reloadAllPages();
+        routes.reloadAllPages();
         res.json(200);
       }
     })
@@ -155,18 +162,11 @@ router.post('/cms/section/:id/delete', FC.isAuth, function(req, res, next) {
   })
 });
 
-router.post('/cms/page/:id', FC.isAuth, function(req, res, next) {
-  ES.get.page(req.params.id, function(data){
-    data = FC.updateLanguages(data)
-    res.json(data)
-  })
-});
-
 // delete section from DB
 router.post('/cms/page/:id/delete', FC.isAuth, function(req, res, next) {
 
   ES.delete.page(req.params.id,function(){
-    reloadAllPages();
+    routes.reloadAllPages();
     res.json(200)
   })
   
@@ -178,7 +178,7 @@ router.post('/cms/page/:id/save', FC.isAuth, function(req, res, next) {
     FC.parseGrid(req.body, function(page_obj){
 
       ES.update.page(req.params.id, page_obj._source, function(){
-        reloadAllPages();
+        routes.reloadAllPages();
         res.json(200)
       })
 
@@ -192,16 +192,14 @@ router.post('/cms/page/:id/save', FC.isAuth, function(req, res, next) {
 // create new page
 router.post('/cms/page', FC.isAuth, function(req, res, next) {
 	ES.create.page(req.body, function(resp){
-    reloadAllPages();
+    routes.reloadAllPages();
 		res.redirect("/cms/page-grid/"+resp._id);
 	}) 
 });
 
 
-
+// delete file
 router.post('/cms/delete-file', FC.isAuth, function(req, res, next) {
-
-  console.log(req.body.url)
 
   fs.exists(req.body.url, function(exists) {
     if(exists) {
@@ -214,7 +212,7 @@ router.post('/cms/delete-file', FC.isAuth, function(req, res, next) {
 
 });
 
-
+//save file
 router.post('/cms/save-file', FC.isAuth, function(req, res, next) {
 
   var temp = req.body.data
@@ -233,18 +231,17 @@ router.post('/cms/save-file', FC.isAuth, function(req, res, next) {
 
 });
 
-
+//save navigation
 router.post('/cms/save-navigation', FC.isAuth, function(req, res, next) {
 
   var parsedNav = FC.parseNavGrid(req.body.navigation)
 
   ES.update.navigation(req.body._id, parsedNav._source, function(resp) {
-    reloadAllPages();
+    routes.reloadAllPages();
     res.json(200)
   })
   
 });
-
 
 // Upload images
 var storage = multer.diskStorage({
@@ -260,7 +257,7 @@ var upload = multer({
   storage: storage
 }).single('image');
 
-
+// upload image
 router.post('/upload', FC.isAuth, upload, function(req, res, next) {
 
   res.redirect('/cms/image-upload')

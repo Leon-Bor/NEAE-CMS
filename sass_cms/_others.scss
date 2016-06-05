@@ -19,3 +19,27 @@ a.list-group-item:hover{
     color: white;
 }
 
+
+.grid-components{
+
+	ul{
+		list-style: none;
+    	padding: 0px;
+	}
+
+	.btn-group{
+		width: 100%;
+
+		.stretch-80{
+			width: 80%;
+			margin-bottom: 1px;
+		}
+		.stretch-20{
+			width: 20%;
+			margin-bottom: 1px;
+		}
+		.stretch-40{
+			width: 40%;
+		}
+	}
+}

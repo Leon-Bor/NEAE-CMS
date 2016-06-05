@@ -5,6 +5,9 @@ String.prototype.replaceAll = function(search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
+app.run(function($rootScope) {
+    $rootScope.keys = Object.keys;
+});
 
 app.config(['$routeProvider','$locationProvider','$compileProvider',
 	function($routeProvider, $locationProvider,$compileProvider) {
@@ -139,9 +142,10 @@ app.controller('page-grid', ['$scope', '$http', '$routeParams','$location','$com
   	function init(){
 
   		$scope.optionsModal = {};
+  		$scope.sectionListStart = 0;
 
 		$http({
-		  method: 'POST',
+		  method: 'GET',
 		  url: '/cms/page/'+$routeParams.id
 		}).then(function successCallback(response) {
 			$scope.page = response.data;
@@ -169,16 +173,19 @@ app.controller('page-grid', ['$scope', '$http', '$routeParams','$location','$com
 
 
 					/* DRAG AND DROP */
-			    $scope.dragoverCallback = function(event, index, external, type, test) {
+			    $scope.dragoverCallback = function(event, index, external, type, items) {
 			        $scope.logListEvent('dragged over', event, index, external, type);
-			        // Disallow dropping in the third row. Could also be done with dnd-disable-if.
+			        
+
+			        if( type == "itemType"){
+			        	$('.dndPlaceholder').css('width', ($scope.placeholderWidth/12)*100  +'%')
+			        }
 
 			        return true;
 			    };
 
 			    $scope.dropCallback = function(event, index, item, external, type, allowedType) {
 			        $scope.logListEvent('dropped at', event, index, external, type);
-			        clearInterval(hoverIntverval);
 
 			        if (external) {
 			            if (allowedType === 'itemType' && !item.label) return false;
@@ -187,12 +194,9 @@ app.controller('page-grid', ['$scope', '$http', '$routeParams','$location','$com
 			        return item;
 			    };
 
-			    var hoverIntverval;
-			    $scope.placeholderWidth = function(id){
-			    	var calced = id / 12 * 100;
+			    $scope.setPlaceholderWidth = function(witdh){
 
-					//hoverIntverval = setInterval(function(){ $('.dndPlaceholder').css("width", calced + "%") }, 300);
-
+			    	$scope.placeholderWidth = witdh;
 			    }
 
 			    $scope.logEvent = function(message, event) {
@@ -232,8 +236,9 @@ app.controller('page-grid', ['$scope', '$http', '$routeParams','$location','$com
 			 showalert("Page saved!","alert-success")
 			 $('#optionsModal').modal('hide')
 		}, function errorCallback(response) {
-		// called asynchronously if an error occurs
-		// or server returns response with an error status.
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+			showalert("Saving failed","alert-danger")
 		});
 
 
@@ -260,7 +265,6 @@ app.controller('page-grid', ['$scope', '$http', '$routeParams','$location','$com
 	}
 
 	$scope.optionsModal = function (element, index, parent, grandParent) {
-		console.log(element, index, parent, grandParent)
 		if(element == "container"){
 			$scope.optionsModal.wrapperClasses = $scope.model[index].wrapperClasses
 			$scope.optionsModal.classes = $scope.model[index].classes
@@ -295,9 +299,20 @@ app.controller('page-grid', ['$scope', '$http', '$routeParams','$location','$com
 			$scope.model[$scope.optionsModal.grandParent].rows[$scope.optionsModal.parent].items[$scope.optionsModal.index].classes = $scope.optionsModal.classes
 
 		}
-
 		$scope.savePage()
 	}
+
+
+  	$scope.prevSections = function() {
+
+  		$scope.sectionListStart = ($scope.sectionListStart - 10) < 0 ? 0 : $scope.sectionListStart -= 10;
+ 
+  	}
+
+  	$scope.nextSections = function() {
+		$scope.sectionListStart = ($scope.sectionListStart + 10) >= $scope.dndSections.length ? $scope.sectionListStart : $scope.sectionListStart += 10;
+
+  	}
 
  }]);
 
@@ -310,13 +325,12 @@ app.controller('page-edit', ['$scope', '$http', '$routeParams','$location',
   	function init(){
 
 		$http({
-		  method: 'POST',
+		  method: 'GET',
 		  url: '/cms/page/'+$routeParams.id
 		}).then(function successCallback(response) {
 			$scope.current_language = "default";
 
 			$scope.page = response.data;
-			console.log($scope.page )
 
 			if(editor){
 
@@ -327,7 +341,6 @@ app.controller('page-edit', ['$scope', '$http', '$routeParams','$location',
 			$scope.$watchCollection('current_language', function(newLang, oldLang) {
 
 				if(editor){
-					console.log(newLang + oldLang)
 					$scope.page._source.languages[oldLang].htmlHead = editor.getValue();
 					
 					if(!$scope.page._source.languages[newLang].htmlHead){
@@ -394,6 +407,7 @@ app.controller('sections', ['$scope', '$http', '$routeParams','$location','getSe
 		// or server returns response with an error status.
 		});
   	}
+
 
  }]);
 
@@ -486,7 +500,6 @@ app.controller('navigation', ['$scope', '$http', '$routeParams','$location',
 			  url: '/cms/navigation/main',
 			}).then(function successCallback(response) {
 
-				console.log(response.data)
 				$scope.navigations = response.data
 				
 			}, function errorCallback(response) {
@@ -732,7 +745,6 @@ app.controller('sass-editor', ['$scope','$rootScope', '$http', '$routeParams','$
 		}
 
   		for (var file in $scope.sass_files) {
-  			console.log()
 			$http({
 			  method: 'POST',
 			  url: '/cms/save-file',
@@ -802,7 +814,6 @@ app.controller('sass-editor', ['$scope','$rootScope', '$http', '$routeParams','$
   			delete $scope.sass_files[path];
   			editor.setValue($scope.sass_files[$scope.open_sass_files[$scope.open_sass_files.length -1]].data, -1)
   			$scope.active_file = $scope.sass_files[$scope.open_sass_files[$scope.open_sass_files.length -1]].path;
-  			console.log($scope.active_file)
   		}
   		
 
@@ -990,7 +1001,6 @@ app.controller('settings', ['$scope', '$http', '$routeParams','$location',
 		  	cms_password_re: $scope.cms_password_re
 		  }
 		}).then(function successCallback(response) {
-			console.log(response)
 			if(response.data.error == 0){
 				showalert("Password changed.", "alert-success")
 			}else if(response.data.error == 100){
@@ -1072,6 +1082,18 @@ app.controller('settings', ['$scope', '$http', '$routeParams','$location',
     }, 5000);
   }
 
+$( document ).ready(function() {
+	$(".nav-element").click(function(){
+		var clickedElement = $(this)
+		$(".nav-element").each(function(){
+		if( clickedElement.html() == $(this).html() ){
+		$(this).addClass("selected")
+		}else{
+		$(this).removeClass("selected")
+		}
+		})
+	})
+})
 
 
 

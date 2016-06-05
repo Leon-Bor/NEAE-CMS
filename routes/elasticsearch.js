@@ -179,7 +179,7 @@ var ES = {
 
             var lang = {
                         default:{
-                            html: "Write or paste HTML here...",
+                            html: "Write or paste content here...",
                         }
                     };
 

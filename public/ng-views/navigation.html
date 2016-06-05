@@ -1,146 +1,124 @@
-
 <div class="row">
-    <div class="col-lg-12">
-        <h1>Navigation<small> Edit Your Main Navigation</small></h1>
-    </div>
+	<div class="col-lg-12">
+		<h1>Navigation<small> Edit Your Main Navigation</small></h1>
+	</div>
 </div>
-
 <div class="row">
-
-    <div class="col-md-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title" style="display: inline;"><i class="fa fa-bar-chart-o"></i> Navigation</h3>
-		        <ul dnd-list="[]" style="display: inline;list-style: none;margin:0px;padding:0px;">
-		            <li style="display: inline;"> <i class="fa fa-trash" aria-hidden="true" style="    float: right;"></i></li>
-		        </ul>
-                
-            </div>
-            <div class="panel-body" style="padding: 10px;">
-            	<div class="row">
-	            	<div class="col-md-12 dnd-nav">
-
-<ul dnd-list="navigations._source.languages[current_language].model"
-    dnd-allowed-types="['link', 'external-link', 'dropdown']"
-    >
-
-    <li ng-repeat="link in navigations._source.languages[current_language].model"
-        dnd-draggable="link"
-        dnd-type="link.type"
-        dnd-moved="navigations._source.languages[current_language].model.splice($index, 1); logEvent('Item moved', event)"
-        dnd-drop="dropCallback(event, index, item, external, type, link.type)"
-        dnd-effect-allowed="move"
-        >
-        <dnd-nodrag>
-          <div dnd-handle class="handle">:::</div>
-          <div class="name">
-              <input type="text" ng-model="link.name" class="form-control input-sm">
-          </div>
-          <div class="name">
-              <input ng-show="link.type != 'dropdown'" type="text" ng-model="link.url" class="form-control input-sm">
-          </div>
-        </dnd-nodrag>
-
-        <ul ng-if="link.dropdown == true" dnd-list="link.items"
-    		dnd-allowed-types="['link', 'external-link']">
-        	<li ng-repeat="droplink in link.items" class="dropdown-element"
-				dnd-draggable="droplink"
-				dnd-type="droplink.type"
-				dnd-moved="link.items.splice($index, 1); logEvent('Item moved', event)"
-				dnd-drop="dropCallback(event, index, item, external, type, link.type)"
-				dnd-effect-allowed="move"
-        		>
-		        <dnd-nodrag>
-		          <div dnd-handle class="handle">:::</div>
-		          <div class="name">
-		              <input type="text" ng-model="droplink.name" class="form-control input-sm">
-		          </div>
-		          <div class="name">
-		              <input type="text" ng-model="droplink.url" class="form-control input-sm">
-		          </div>
-		        </dnd-nodrag>        	
-        	</li>
-        </ul>
-
-    </li>
-
-    <li class="dndPlaceholder">
-        Drop any here
-    </li>
-
-</ul>
-
-	            	</div>
-            	</div>
-
-            </div>
-        </div>
-        <button class="btn btn-primary" ng-click="saveNavigation()">Save Navigation</button>
-    </div>
-
-
-    <div class="col-md-4">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Navi Language</h3>
-            </div>
-            <div class="panel-body">
+	<div class="col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title" style="display: inline;"><i class="fa fa-bar-chart-o"></i> Navigation</h3>
+				<ul dnd-list="[]" style="display: inline;list-style: none;margin:0px;padding:0px;">
+					<li style="display: inline;"> <i class="fa fa-trash" aria-hidden="true" style="    float: right;"></i></li>
+				</ul>
+				
+			</div>
+			<div class="panel-body" style="padding: 10px;">
+				<div class="row">
+					<div class="col-md-12 dnd-nav">
+						<ul dnd-list="navigations._source.languages[current_language].model"
+							dnd-allowed-types="['link', 'external-link', 'dropdown']"
+							>
+							<li ng-repeat="link in navigations._source.languages[current_language].model"
+								dnd-draggable="link"
+								dnd-type="link.type"
+								dnd-moved="navigations._source.languages[current_language].model.splice($index, 1); logEvent('Item moved', event)"
+								dnd-drop="dropCallback(event, index, item, external, type, link.type)"
+								dnd-effect-allowed="move"
+								>
+								<dnd-nodrag>
+								<div dnd-handle class="handle">:::</div>
+								<div class="name">
+									<input type="text" ng-model="link.name" class="form-control input-sm">
+								</div>
+								<div class="name">
+									<input ng-show="link.type != 'dropdown'" type="text" ng-model="link.url" class="form-control input-sm">
+								</div>
+								</dnd-nodrag>
+								<ul ng-if="link.dropdown == true" dnd-list="link.items"
+									dnd-allowed-types="['link', 'external-link']">
+									<li ng-repeat="droplink in link.items" class="dropdown-element"
+										dnd-draggable="droplink"
+										dnd-type="droplink.type"
+										dnd-moved="link.items.splice($index, 1); logEvent('Item moved', event)"
+										dnd-drop="dropCallback(event, index, item, external, type, link.type)"
+										dnd-effect-allowed="move"
+										>
+										<dnd-nodrag>
+										<div dnd-handle class="handle">:::</div>
+										<div class="name">
+											<input type="text" ng-model="droplink.name" class="form-control input-sm">
+										</div>
+										<div class="name">
+											<input type="text" ng-model="droplink.url" class="form-control input-sm">
+										</div>
+										</dnd-nodrag>
+									</li>
+								</ul>
+							</li>
+							<li class="dndPlaceholder">
+								Drop any here
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-primary" ng-click="saveNavigation()">Save Navigation</button>
+	</div>
+	<div ng-hide="(navigations._source.languages | objLength) == 1" class="col-md-4">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Navi Language </h3>
+			</div>
+			<div class="panel-body">
 				<div class="col-md-12">
-		            <label for="grid_width" >
-		                Language:
-		            </label>
-
-		            <select ng-model="current_language" class="form-control">
-		                <option ng-repeat="(key,val) in navigations._source.languages" value="{{key}}">{{key}}</option>
-		            </select>
-	            </div>
-        	</div>
-	    </div>
+					<label for="grid_width" >
+						Language:
+					</label>
+					<select ng-model="current_language" class="form-control">
+						<option ng-repeat="(key,val) in navigations._source.languages" value="{{key}}">{{key}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="col-md-6"></div>
-    <div class="col-md-4">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Add Navi-Element</h3>
-
-            </div>
-            <div class="panel-body">
+	<div class="col-md-4">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Add Navi-Element</h3>
+			</div>
+			<div class="panel-body">
 				<div class="col-md-12">
-		            <label for="grid_width" >
-		                Navi-Element:
-		            </label>
-
-		            <select ng-model="navElementType" class="form-control">
-		                <option selected value="link">Link</option>
-		                <option value="external-link">External Link</option>
-		                <option value="dropdown">Dropdown</option>
-		            </select>
-
-		            <label for="grid_width" >
-		                Name:
-		            </label>
-		            <input type="text" class="form-control" name="url" placeholder="Type a name..." data-minlength="1" required ng-model="navElementName">
-		            <label ng-show="navElementType == 'external-link'">
-		                Url:
-		            </label>
-		            <input ng-show="navElementType == 'external-link'" type="text" class="form-control" name="url" placeholder="http://bob.com" data-minlength="1" required ng-model="navElementUrl">
-		            <label ng-show="navElementType == 'link'">
-		                URL from Pages:
-		            </label>
-		            <select ng-show="navElementType == 'link'" ng-model="selectedPage" class="form-control">
-		                <option ng-repeat="page in pages" >{{page._source.url}}</option>
-		            </select>
-		            <p></p>
-		            <button ng-click="addElement(navElementType,navElementName,selectedPage,navElementUrl)" class="btn btn-sm btn-primary" style="width: 100%;">Add</button>
-	            </div>
-        	</div>
-	    </div>
+					<label for="grid_width" >
+						Navi-Element:
+					</label>
+					<select ng-model="navElementType" class="form-control">
+						<option selected value="link">Link</option>
+						<option value="external-link">External Link</option>
+						<option value="dropdown">Dropdown</option>
+					</select>
+					<label for="grid_width" >
+						Name:
+					</label>
+					<input type="text" class="form-control" name="url" placeholder="Type a name..." data-minlength="1" required ng-model="navElementName">
+					<label ng-show="navElementType == 'external-link'">
+						Url:
+					</label>
+					<input ng-show="navElementType == 'external-link'" type="text" class="form-control" name="url" placeholder="http://bob.com" data-minlength="1" required ng-model="navElementUrl">
+					<label ng-show="navElementType == 'link'">
+						URL from Pages:
+					</label>
+					<select ng-show="navElementType == 'link'" ng-model="selectedPage" class="form-control">
+						<option ng-repeat="page in pages" >{{page._source.url}}</option>
+					</select>
+					<p></p>
+					<button ng-click="addElement(navElementType,navElementName,selectedPage,navElementUrl)" class="btn btn-sm btn-primary" style="width: 100%;">Add</button>
+				</div>
+			</div>
+		</div>
 	</div>
-
 </div>
-
-
-
 <script type="text/javascript">
-
 </script>

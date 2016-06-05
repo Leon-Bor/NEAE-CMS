@@ -1,11 +1,10 @@
-
-
-ul.nav li.dropdown:hover > ul.dropdown-menu {
-    display: block;    
-}
-
+// Open navigation dropdowns on hover
 @media (min-width: 979px) {
   ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;
   }
+}
+
+.navbar{
+	margin-bottom: 0px;
 }

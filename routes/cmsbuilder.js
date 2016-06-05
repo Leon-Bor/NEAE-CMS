@@ -1,6 +1,5 @@
 var ES = require('./elasticsearch');
 
-
 var cmsbuilder = {
 	init: function () {
 		var that = this;

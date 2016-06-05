@@ -1,18 +1,21 @@
-  <nav class="navbar" role="navigation">
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a href="/" class="navbar-brand" title="Voteitup.net - Your social playlist"><img width="150" src="http://de.voteitup.net/wp-content/uploads/2015/08/blacklogo_dark1.png" alt="Voteitup.net - Your social playlist"></a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Project name</a>
     </div>
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <%- _sourceNavigation.languages[lang].html %>
-    </div>
-</nav>
+    <div id="navbar1" class="navbar-collapse collapse">
 
+        <%- _sourceNavigation.languages[lang].html %>
+
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
 
 
 

@@ -1,33 +1,28 @@
-
 <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    var editor = ace.edit("editor");
-    editor.getSession().setMode("ace/mode/ejs");
-    editor.setTheme("ace/theme/monokai");
+var editor = ace.edit("editor");
+editor.getSession().setMode("ace/mode/ejs");
+editor.setTheme("ace/theme/monokai");
+editor.setShowPrintMargin(false);
 </script>
-
 <div class="row">
     <div class="col-lg-12">
         <h1>Scaffhold<small> Edit Your The Scaffhold Of The Generated Pages</small></h1>
     </div>
 </div>
-
 <div class="row">
-
     <div class="col-md-12">
-            <div style="width: 100%; background-color: #2F3129;padding-left: 50px;">
-            	<div ng-repeat="file in files" class="btn-group" role="group" aria-label="..." style="margin:4px 4px 4px 2px;">
-				  <button ng-click="changeFile(file.path)" type="button" class="btn btn-default btn-xs" >{{file.name}}</button>
-				</div>	
+        <div style="width: 100%; background-color: #2F3129;padding-left: 50px;">
+            <div ng-repeat="file in files" class="btn-group" role="group" aria-label="..." style="margin:4px 4px 4px 2px;">
+                <button ng-click="changeFile(file.path)" type="button" class="btn btn-default btn-xs" >{{file.name}}</button>
             </div>
-
-				<div id="editor"></div>
-
-        <div style="margin-top: 10px">
-        <button type="button" class="btn btn-default" ng-click="saveFiles()" >Save All</button>
-        <button type="button" class="btn btn-primary" ng-click="saveCurrentFile()" >Save</button>
-        	
         </div>
-         
+        <div id="editor"></div>
+        <div style="margin-top: 10px">
+            <button type="button" class="btn btn-default" ng-click="saveFiles()" >Save All</button>
+            <button type="button" class="btn btn-primary" ng-click="saveCurrentFile()" >Save</button>
+            
+        </div>
+        
     </div>
 </div>

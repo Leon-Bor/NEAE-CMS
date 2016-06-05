@@ -4,13 +4,16 @@
     <title><%= _source.languages[lang].pagetitle %></title>
     <link rel="stylesheet" type="text/css" href="/css/main.css"/>
 
+    <meta http-equiv="language" content="<%= lang == 'default' ? default_lang : lang %>">
+
+    <!-- Set in the CMS -->
 	<meta name="description" content="<%= _source.languages[lang].metaDescription %>">
 	<meta name="keywords" content="<%= _source.languages[lang].metaTags %>">
+        <!-- Variable Head Content from page-edit editor -->
+        <%- _source.languages[lang].htmlHead %>
+    <!-- END Set in the CMS -->
 
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/page.js"></script>
-
-    <%- _source.languages[lang].htmlHead %>
-
 </head>

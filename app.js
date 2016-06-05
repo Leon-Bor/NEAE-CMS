@@ -63,7 +63,6 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -73,14 +72,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/ace-builds')));
 
 // required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotchyeah' })); // session secret
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 //ROUTES
-app.use('/', routes);
+app.use('/', routes.router);
+routes.routes.init()
 app.use('/', passportRoute);
 app.use('/', cms);
 

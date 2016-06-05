@@ -1,97 +1,75 @@
 <script type="text/javascript">
-    tinymce.init({
-        selector: 'textarea',
-        theme: 'modern',
-        height : "480",
-        plugins: [
-        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-        'searchreplace wordcount visualblocks visualchars code fullscreen',
-        'insertdatetime media nonbreaking save table contextmenu directionality',
-        'emoticons template paste textcolor colorpicker textpattern imagetools'
-        ],
-        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        toolbar2: 'print preview media | forecolor backcolor emoticons',
-        image_advtab: true,
-        relative_urls : false,
-    });
+tinymce.init({
+selector: 'textarea',
+theme: 'modern',
+height : "480",
+plugins: [
+'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+'searchreplace wordcount visualblocks visualchars code fullscreen',
+'insertdatetime media nonbreaking save table contextmenu directionality',
+'emoticons template paste textcolor colorpicker textpattern imagetools'
+],
+toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+toolbar2: 'print preview media | forecolor backcolor emoticons',
+image_advtab: true,
+relative_urls : false,
+});
 </script>
 <div class="row">
     <div class="col-lg-12">
         <h1>Section<small> Manage this section</small></h1>
     </div>
 </div>
-
 <div class="row">
-
     <div class="col-md-8">
         <div class="panel panel-primary">
-<!--             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Edit Section</h3>
-            </div> -->
             <div class="panel-body" style="padding: 0px;">
-                <!-- todo: implement html editor later -->
-
-                    <textarea class="form-control" rows="3" ng-model="section['_source']['languages'][current_language]['html']"></textarea>
-
+                <textarea class="form-control" rows="3" ng-model="section['_source']['languages'][current_language]['html']"></textarea>
             </div>
         </div>
         <button class="btn btn-primary" ng-click="saveSection()">Save Section</button>
     </div>
-
-
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Section Options</h3>
             </div>
             <div class="panel-body">
-
-            <label for="grid_width" >
-                Language:
-            </label>
-
-            <select ng-model="current_language" class="form-control">
-                <option ng-repeat="(key,val) in section._source.languages" value="{{key}}">{{key}}</option>
-            </select>
-
-              <label for="name">
-                  Section Name:
-              </label>
-
-              <input type="text" class="form-control" name="name" placeholder="Enter Section Name" data-minlength="1" required ng-model="section._source.name">                
-
-           
-            <label for="grid_width" >
-                Standart Grid-Width:
-            </label>
-
-            <select ng-model="section._source.standart_grid_width" name="grid_width" id="addnavy" class="form-control">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select>
-
-              <label for="name">
-                  Classes:
-              </label>
-
-              <input type="text" class="form-control" name="name" placeholder="Add extra classes to section" data-minlength="1" required ng-model="section._source.classes">  
+                <label ng-hide="(section._source.languages | objLength) == 1">
+                    Language:
+                </label>
+                <select ng-hide="(section._source.languages | objLength) == 1" ng-model="current_language" class="form-control">
+                    <option ng-repeat="(key,val) in section._source.languages" value="{{key}}">{{key}}</option>
+                </select>
+                <label for="name">
+                    Section Name:
+                </label>
+                <input type="text" class="form-control" name="name" placeholder="Enter Section Name" data-minlength="1" required ng-model="section._source.name">
+                
+                <label for="grid_width" >
+                    Standart Grid-Width:
+                </label>
+                <select ng-model="section._source.standart_grid_width" name="grid_width" id="addnavy" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <label for="name">
+                    Classes:
+                </label>
+                <input type="text" class="form-control" name="name" placeholder="Add extra classes to section" data-minlength="1" required ng-model="section._source.classes">
+            </div>
         </div>
     </div>
 </div>
-</div>
-
-
-
 <script type="text/javascript">
-
 </script>

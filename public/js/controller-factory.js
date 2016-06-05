@@ -16,3 +16,17 @@ app.factory('getSections', function($http) {
   };
   return return_service;
 });
+
+
+
+// Setup the filter
+app.filter('objLength', function() {
+  return function(object) {
+    var count = 0;
+
+    for(var i in object){
+      count++;
+    }
+    return count
+  }
+});

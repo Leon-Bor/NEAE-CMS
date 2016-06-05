@@ -1,112 +1,101 @@
 <!-- Create Page -->
 <div class="modal fade" id="create_page" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Create a new page</h4>
-      </div>
-      <form role="form" id="newPageForm" action="/cms/page" method="POST" data-toggle="validator">
-      <div class="modal-body">
-        
-					  <label for="url" class="col-md-3">
-					      URL:
-					  </label>
-					  <div class="col-md-9">
-					  		<!-- Todo: add validation to input e.g. pattern="[A-Za-z0-9_]" -->
-					      <input type="text" class="form-control" name="url" placeholder="Enter URL" data-minlength="1" required >
-					      <p class="help-block">
-                    	Example : "/home-page"
-                </p>
-					  </div>
-
-					  <label for="pagetitle" class="col-md-3">
-					      Page Title:
-					  </label>
-					  <div class="col-md-9">
-					      <input type="text" class="form-control" name="pagetitle"placeholder="Enter Page Title" data-minlength="1" required >
-					      <p class="help-block" >
-                    Page title will be displayed e.g. in the browser tabs.
-                </p>
-					  </div>
-
-        
-      </div>
-      <div class="modal-footer">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Create a new page</h4>
+			</div>
+			<form role="form" id="newPageForm" action="/cms/page" method="POST" data-toggle="validator">
+				<div class="modal-body">
+					
+					<label for="url" class="col-md-3">
+						URL:
+					</label>
+					<div class="col-md-9">
+						<!-- Todo: add validation to input e.g. pattern="[A-Za-z0-9_]" -->
+						<input type="text" class="form-control" name="url" placeholder="Enter URL" data-minlength="1" required >
+						<p class="help-block">
+							Example : "/home-page"
+						</p>
+					</div>
+					<label for="pagetitle" class="col-md-3">
+						Page Title:
+					</label>
+					<div class="col-md-9">
+						<input type="text" class="form-control" name="pagetitle"placeholder="Enter Page Title" data-minlength="1" required >
+						<p class="help-block" >
+							Page title will be displayed e.g. in the browser tabs.
+						</p>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        	<button type="submit" class="btn btn-primary">Create Page</button>      
-       </div>
-      </form>
-    </div>
-  </div>
+					<button type="submit" class="btn btn-primary">Create Page</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
-
-
 <!-- Create section -->
 <div class="modal fade" id="create_section" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Create a new section</h4>
-      </div>
-      <form role="form" id="newSectionForm" action="/cms/section" method="POST" data-toggle="validator">
-      <div class="modal-body">
-        
-					  <label for="name" class="col-md-3">
-					      Section Name:
-					  </label>
-					  <div class="col-md-9">
-					  		<!-- Todo: add validation to input e.g. pattern="[A-Za-z0-9_]" -->
-					      <input type="text" class="form-control" name="name" placeholder="Enter Section Name" data-minlength="1" required >
-					      <p class="help-block">Name for the section.</p>
-					  </div>
-
-						<div>
-						    <label for="standart_grid_width" class="col-md-3">
-						        Grid-Width:
-						    </label>
-						    <div class="col-md-9">
-						        <select name="standart_grid_width" id="addnavy" class="form-control">
-						            <option value="4">--Please Select --</option>
-						            <option>1</option>
-						            <option>2</option>
-						            <option>3</option>
-						            <option>4</option>
-						            <option>5</option>
-						            <option>6</option>
-						            <option>7</option>
-						            <option>8</option>
-						            <option>9</option>
-						            <option>10</option>
-						            <option>11</option>
-						            <option>12</option>
-						        </select>
-								    <p class="help-block">
-		                    Section grid width. Example: 6 half-width, 12 full-width.
-		                </p>
-						    </div>            
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Create a new section</h4>
+			</div>
+			<form role="form" id="newSectionForm" action="/cms/section" method="POST" data-toggle="validator">
+				<div class="modal-body">
+					
+					<label for="name" class="col-md-3">
+						Section Name:
+					</label>
+					<div class="col-md-9">
+						<!-- Todo: add validation to input e.g. pattern="[A-Za-z0-9_]" -->
+						<input type="text" class="form-control" name="name" placeholder="Enter Section Name" data-minlength="1" required >
+						<p class="help-block">Name for the section.</p>
+					</div>
+					<div>
+						<label for="standart_grid_width" class="col-md-3">
+							Grid-Width:
+						</label>
+						<div class="col-md-9">
+							<select name="standart_grid_width" id="addnavy" class="form-control">
+								<option value="4">--Please Select --</option>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+								<option>9</option>
+								<option>10</option>
+								<option>11</option>
+								<option>12</option>
+							</select>
+							<p class="help-block">
+								Section grid width. Example: 6 half-width, 12 full-width.
+							</p>
 						</div>
-
-        
-      </div>
-      <div class="modal-footer">
+					</div>
+					
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        	<button type="submit" class="btn btn-primary">Create Page</button>      
-       </div>
-      </form>
-    </div>
-  </div>
+					<button type="submit" class="btn btn-primary">Create Section</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
-
-
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('form').submit(function (e) {
 			//e.preventDefault();
 		});
 	})
-
-
 </script>
-

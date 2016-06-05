@@ -10,7 +10,7 @@ var functions = {
 
 		isAuth: function(req,res,next){
 
-			if (req.isAuthenticated()){
+			if (req.user){
 
 				next();
 			} else {
@@ -58,16 +58,15 @@ var functions = {
 
 					for (var section in sectionTable) {
 
-						if(sectionTable[section].languages[lang] == undefined){
-							sectionTable[section].languages[lang] = {}
-							sectionTable[section].languages[lang].html = sectionTable[section].languages["default"]
-						}
+						sectionTable[section].languages[lang] = sectionTable[section].languages[lang] || {}
+						sectionTable[section].languages[lang].html = sectionTable[section].languages["default"]
+
 					}
 
 					if(cfg.config.default_lang != cfg.config.supported_lang[i]){
-						if(!page._source.languages[lang]['html']){
-							page._source.languages[lang]['html'] = ""
-						}
+						page._source.languages[lang] = page._source.languages[lang] || {}
+						page._source.languages[lang]['html'] = page._source.languages[lang]['html'] || "";
+
 						page._source.languages[lang]['html'] = that.jsonToHtml(lang, sectionTable, page)						
 					}
 
@@ -76,7 +75,6 @@ var functions = {
 				page._source.languages["default"]['html'] = that.jsonToHtml("default", sectionTable, page)
 
 			}else{
-				console.log(" default render " + lang)
 				page._source.languages["default"]['html'] = that.jsonToHtml("default", sectionTable, page)
 			}
 
@@ -159,6 +157,7 @@ var functions = {
 	},
 	updateLanguages: function (data, type) {
 	    // add missing languages
+
 	    for (var i = 0; i < cfg.config.supported_lang.length; i++) {
 	      if(data._source.languages[cfg.config.supported_lang[i]] == undefined && cfg.config.supported_lang[i] != cfg.config.default_lang){
 	        data._source.languages[cfg.config.supported_lang[i]] = data._source.languages['default']
@@ -171,6 +170,9 @@ var functions = {
 	      if(s == "default"){
 
 	      }
+	      else if(cfg.config.multi_lang == "false"){
+	      	delete data._source.languages[s]
+	      }
 	      else if(s == cfg.config.default_lang){
 	        delete data._source.languages[s]
 	      }
@@ -182,29 +184,27 @@ var functions = {
 	      }
 	    }
 
+
+
+
 	    return data;
 	},
 	parseNavGrid: function(navigation) {
 
-
-
-		console.log(navigation)
 		for(var nav in navigation._source.languages){
 			var html = '';
-			html += '<ul id="active" class="highlight-active nav navbar-nav side-nav">'
+			html += '<ul class="nav navbar-nav">'
 			for (var i = 0; i < navigation._source.languages[nav].model.length; i++) {
-				//console.log(navigation._source.languages[nav].model[i])
 
 				if(navigation._source.languages[nav].model[i].dropdown == false){
 					html += '<li class="nav-element"><a href="'+navigation._source.languages[nav].model[i].url+'">'+navigation._source.languages[nav].model[i].name+'</a></li>'
 				}else{
-					html += '<ul class="nav navbar-nav">'
+	
 					html += '<li class="dropdown">'
 					html += '<a href="#" class="dropdown-toggle" data-toggle="dropdown">'+navigation._source.languages[nav].model[i].name+'<b class="caret"></b></a>'
 					html += '<ul class="dropdown-menu">'
 
 					for (var j = 0; j < navigation._source.languages[nav].model[i].items.length; j++) {
-						//console.log(navigation._source.languages[nav].model[i].items[i])
 						html += '<li><a href="'+navigation._source.languages[nav].model[i].items[j].url+'">'+navigation._source.languages[nav].model[i].items[j].name+'</a></li>'
 					}
 					html += '</ul>'
