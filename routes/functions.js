@@ -64,7 +64,8 @@ var functions = {
 					}
 
 					if(cfg.config.default_lang != cfg.config.supported_lang[i]){
-						if(!page._source.languages[lang]['html']){
+						if(!page._source.languages[lang]){
+							page._source.languages[lang] = {}
 							page._source.languages[lang]['html'] = ""
 						}
 						page._source.languages[lang]['html'] = that.jsonToHtml(lang, sectionTable, page)						
