@@ -36,17 +36,20 @@ var routes = {
 					// Set/ Re-Set all routes
 					router.get( pageArray , function(req, res, next) {
 
+
 						var lang = accepts(req).language(cfg.config.languages)
 						req.originalUrl = req.originalUrl.split("?")[0];
 
-						//Force Language to query.lang if exists
-						if(req.query.lang){
-							if(cfg.config.supported_lang.indexOf(req.query.lang)){
-								lang = req.query.lang;
+						//Force Language to query.lang or cookie if exists
+						if(req.query.lang || req.cookies.lang){
+							if(cfg.config.supported_lang.indexOf(req.query.lang) > -1 || cfg.config.supported_lang.indexOf(req.cookies.lang) > -1){
+								lang = req.query.lang || req.cookies.lang;
+
+								res.cookie('lang', lang, { maxAge: 9000000, httpOnly: false});
 							}
 						}
 
-						//Get the right language which is requested in the browser or via query
+						//Get the right language which is requested in the browser, query or cookie
 						if(lang == false || cfg.config.multi_lang == false || lang == cfg.config.default_lang){
 							lang = "default"
 
@@ -59,6 +62,7 @@ var routes = {
 						that.pageContent[req.originalUrl].lang = lang;
 						that.pageContent[req.originalUrl].default_lang = cfg.config.default_lang;
 
+						console.log(that.pageContent[req.originalUrl]._source.languages[lang])
 						// Render page if set to Online, or preview is clicked and also exist
 						if(that.pageContent[req.originalUrl]._source.online == true || req.query.preview == that.pageContent[req.originalUrl]._id){
 							res.render('page', that.pageContent[req.originalUrl]);

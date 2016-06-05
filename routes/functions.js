@@ -57,16 +57,16 @@ var functions = {
 					var lang = cfg.config.supported_lang[i];
 
 					for (var section in sectionTable) {
-
-						sectionTable[section].languages[lang] = sectionTable[section].languages[lang] || {}
-						sectionTable[section].languages[lang].html = sectionTable[section].languages["default"]
-
+						if(sectionTable[section].languages[lang] == undefined){
+ 							sectionTable[section].languages[lang] = {}
+ 							sectionTable[section].languages[lang].html = sectionTable[section].languages["default"]
+ 						}
 					}
 
 					if(cfg.config.default_lang != cfg.config.supported_lang[i]){
-						page._source.languages[lang] = page._source.languages[lang] || {}
-						page._source.languages[lang]['html'] = page._source.languages[lang]['html'] || "";
-
+						if(!page._source.languages[lang]['html']){
+							page._source.languages[lang]['html'] = ""
+						}
 						page._source.languages[lang]['html'] = that.jsonToHtml(lang, sectionTable, page)						
 					}
 
