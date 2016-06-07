@@ -12,11 +12,11 @@ Node.js CMS with Angular.js, Bootstrap, Express.js and Elasticsearch
 - Download and install Node.js (>= v6.0)
 - Run `npm install` in root folder
 - Run CMS in root folder with `node app.js` or `node app.js nolog`
-- Go to localhost:3030/login and login with => Username: `admin`, pw: `admin`
+- Go to `localhost:3030/login` and login with => Username: `admin`, pw: `admin`
 
 ###Todo:
 Some parts of the CMS are not done right now. 
 
 - Dashboard functionality
-- Lots of styling in the CMS
+- Some CMS styling
 - Fontend validation with bootstrap validator
