@@ -42,7 +42,7 @@ var routes = {
 
 						// check if url is called with a "/" in the end
 						if(req.originalUrl.slice(-1) == "/" && req.originalUrl.length > 1){
-							req.originalUrl + req.originalUrl.substring(0, req.originalUrl.length - 1)
+							req.originalUrl = req.originalUrl.substring(0, req.originalUrl.length - 1)
 						}
 
 						//Force Language to query.lang or cookie if exists
