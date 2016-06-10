@@ -40,6 +40,9 @@ var routes = {
 						var lang = accepts(req).language(cfg.config.languages)
 						req.originalUrl = req.originalUrl.split("?")[0];
 
+						// check if url is called with a "/" in the end
+						req.originalUrl = req.originalUrl.slice(-1) == "/" ? req.originalUrl.substring(0, req.originalUrl.length - 1) : req.originalUrl;
+
 						//Force Language to query.lang or cookie if exists
 						if(req.query.lang || req.cookies.lang){
 							if(cfg.config.supported_lang.indexOf(req.query.lang) > -1 || cfg.config.supported_lang.indexOf(req.cookies.lang) > -1){
