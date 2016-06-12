@@ -13,6 +13,14 @@ Node.js CMS with Angular.js, Bootstrap, Express.js and Elasticsearch
 - Run `npm install` in root folder
 - Run CMS in root folder with `node app.js` or `node app.js nolog`
 - Go to `localhost:3030/login` and login with => Username: `admin`, pw: `admin`
+- 
+
+# Multi Language Support
+
+You can add multiple language in the Settings.
+The default language will be shown if in your browser is no language set.
+You can force a language via URL: `http://localhost:3030?lang=de`.
+This will automaticaly set a cookie `lang` and request everytime this language. 
 
 ###Todo:
 Some parts of the CMS are not done right now. 
