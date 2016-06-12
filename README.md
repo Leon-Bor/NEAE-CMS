@@ -17,9 +17,9 @@ Node.js CMS with Angular.js, Bootstrap, Express.js and Elasticsearch
 ##### Multi Language Support
 
 You can add multiple language in the Settings.
-The default language will be shown if in your browser is no language set.
+The default language will be shown if you have not set a language in your browser.
 You can force a language via URL: `http://localhost:3030?lang=de`.
-This will automaticaly set a cookie `lang` and request everytime this language. 
+This will automatically set a cookie `lang` which will request everytime this language.
 
 ###Todo:
 Some parts of the CMS are not done right now. 
@@ -27,3 +27,4 @@ Some parts of the CMS are not done right now.
 - Dashboard functionality
 - Some CMS styling
 - Fontend validation with bootstrap validator
+- Multiple footer languages
